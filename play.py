@@ -4,21 +4,22 @@ import os
 from ffpyplayer.player import MediaPlayer
 from config import Config
 
-_Config = Config()
+_Config = Config('default.yaml')
 VIDEO_SAVE_PATH = _Config.SavePath()['VIDEO_SAVE_PATH']
 
 def PlayVideo(video_path):
     video=cv2.VideoCapture(video_path)
+    frame_num = video.get(cv2.CAP_PROP_FRAME_COUNT) #获取视频总帧数
     player = MediaPlayer(video_path)
-    i=0
-    while True:
+    k=0
+    for i in range(int(frame_num)):
         grabbed, frame=video.read()
         audio_frame, val = player.get_frame()
         #print(audio_frame)
-        if audio_frame==None and i>=10:
+        if audio_frame is None and k>10:
             break
         else:
-            i+=1
+            k+=1
         if not grabbed:
             break
         if cv2.waitKey(30) & 0xFF == ord("q"):
@@ -27,7 +28,8 @@ def PlayVideo(video_path):
         cv2.imshow("PaddleNews", frame)
         if val != 'eof' and audio_frame is not None:
             img, t = audio_frame
-    video.release()
+    if audio_frame is not None:
+        video.release()
     #cv2.destroyAllWindows()
 
 if __name__ == "__main__":
