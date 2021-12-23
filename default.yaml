@@ -1,0 +1,8 @@
+GANDRIVING:
+  FOM_INPUT_IMAGE: './file/input/test.png'
+  FOM_DRIVING_VIDEO: './file/input/zimeng.mp4'
+  FOM_OUTPUT_VIDEO: './file/input/test.mp4'
+
+SAVEPATH:
+  VIDEO_SAVE_PATH: './file/output/video/'
+  AUDIO_SAVE_PATH: './file/output/audio/'
