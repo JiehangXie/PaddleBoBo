@@ -14,8 +14,8 @@ def PlayVideo(video_path):
     k=0
     for i in range(int(frame_num)):
         grabbed, frame=video.read()
-        audio_frame, val = player.get_frame()
-        #print(audio_frame)
+        audio_frame, val = player.get_frame(force_refresh=False)
+        #print(audio_frame,val)
         if audio_frame is None and k>10:
             break
         else:
