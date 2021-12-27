@@ -7,11 +7,13 @@ PaddleBoBo是基于飞桨PaddlePaddle深度学习框架和PaddleSpeech、PaddleG
 
 ## 应用案例
 
-![](https://ai-studio-static-online.cdn.bcebos.com/983600eabb214e9bb4bdb22ce9572765af2b945ce4d8452bbbf1afa03b737f83)
+![](https://ai-studio-static-online.cdn.bcebos.com/2562494f3e754bcf9e21ce0bc9cf7c6d997f34faf3604d0c84866ccdac36b3e0)
 
  - [PaddleBoBo虚拟主播实时直播演示 - Bilibili](https://www.bilibili.com/video/BV1xL4y1n7rH?share_source=copy_web)
 
  - [PaddleBoBo虚拟主播竖版生成演示 - Bilibili](https://www.bilibili.com/video/BV1aP4y1H7qi?share_source=copy_web)
+
+ - [PaddleBoBo虚拟主播横版生成演示 - Bilibili](https://www.bilibili.com/video/BV1uu411S79J?share_source=copy_web)
 
 ## 运行环境
 * [飞桨AIStudio在线运行](https://aistudio.baidu.com/aistudio/projectdetail/3280614?contributionType=1&shared=1) (强烈推荐，Tesla V100冲！！！)
@@ -63,7 +65,9 @@ python general_demo.py \
 ### 更多应用案例正在开发中，欢迎开发者投稿
 
 ## TODO LIST
-最近有点累，如果大佬们有什么想法的话可以提Issue，同时也欢迎PR。
+ - 加入语速、音调控制
+ - 修复黑框BUG  
+如果大佬们有什么想法的话可以提Issue，同时也欢迎PR。
  - https://github.com/JiehangXie/PaddleBoBo/issues
 
 ## 参考资料
