@@ -23,6 +23,9 @@ PaddleBoBo是基于飞桨PaddlePaddle深度学习框架和PaddleSpeech、PaddleG
   * PaddlePaddle >= 2.2.1
   * Nvidia显卡 显存16G+（没测试过，希望有显卡的土豪大佬们反馈下）
 
+## 更新日志
+- 2021.12.29 加入PaddleSpeech TTS的特性，支持修改语速、音高和发音能级。
+
 ## 快速开始
 ### 1.安装依赖包
 ```
@@ -34,6 +37,11 @@ GANDRIVING:
   FOM_INPUT_IMAGE: './file/input/test.png' #带人脸的静态图
   FOM_DRIVING_VIDEO: './file/input/zimeng.mp4' #用作表情迁移的参考视频
   FOM_OUTPUT_VIDEO: './file/input/test.mp4' #表情迁移后的视频输出路径
+
+TTS:
+  SPEED: 1.0 #语速
+  PITCH: 1.0 #音高
+  ENERGY: 1.0 #发音能级
 
 SAVEPATH:
   VIDEO_SAVE_PATH: './file/output/video/' #保存音频的路径
@@ -65,7 +73,7 @@ python general_demo.py \
 ### 更多应用案例正在开发中，欢迎开发者投稿
 
 ## TODO LIST
- - 加入语速、音调控制
+ - ~~加入语速、音调控制~~
  - 修复黑框BUG  
 如果大佬们有什么想法的话可以提Issue，同时也欢迎PR。
  - https://github.com/JiehangXie/PaddleBoBo/issues

@@ -17,7 +17,7 @@ from paddlespeech.t2s.modules.normalizer import ZScore
 model_alias = {
     # acoustic model
     "fastspeech2": "paddlespeech.t2s.models.fastspeech2:FastSpeech2",
-    "fastspeech2_inference": "paddlespeech.t2s.models.fastspeech2:FastSpeech2Inference",
+    "fastspeech2_inference": "paddlespeech.t2s.models.fastspeech2:StyleFastSpeech2Inference",
     # voc
     "pwgan":
     "paddlespeech.t2s.models.parallel_wavegan:PWGGenerator",
@@ -40,6 +40,10 @@ pretrained_models = {
         'speech_stats.npy',
         'phones_dict':
         'phone_id_map.txt',
+        'pitch_stats':
+        'pitch_stats.npy',
+        'energy_stats':
+        'energy_stats.npy',
     },
     # pwgan
     "pwgan_csmsc-zh": {
@@ -57,7 +61,7 @@ pretrained_models = {
 }
 
 class TTSExecutor():
-    def __init__(self):
+    def __init__(self, config):
         
         #FastSpeech2
         model_tag = 'fastspeech2_csmsc-zh'
@@ -67,7 +71,10 @@ class TTSExecutor():
         am_stat = os.path.join(am_res_path, pretrained_models[model_tag]['speech_stats'])
         # must have phones_dict in acoustic
         phones_dict = os.path.join(am_res_path, pretrained_models[model_tag]['phones_dict'])
-        
+        # StyleFastSpeech
+        pitch_stats = os.path.join(am_res_path, pretrained_models[model_tag]['pitch_stats'])
+        energy_stats = os.path.join(am_res_path, pretrained_models[model_tag]['energy_stats'])
+
         #VOC
         voc_tag = "pwgan_csmsc-zh"
         voc_res_path = self._get_pretrained_path(voc_tag)
@@ -80,6 +87,8 @@ class TTSExecutor():
             self.am_config = CfgNode(yaml.safe_load(f))
         with open(voc_config) as f:
             voc_config = CfgNode(yaml.safe_load(f))
+        with open(config) as f:
+            self.style_config = CfgNode(yaml.safe_load(f))
 
         with open(phones_dict, "r") as f:
             phn_id = [line.strip().split() for line in f.readlines()]
@@ -100,7 +109,7 @@ class TTSExecutor():
         am_mu = paddle.to_tensor(am_mu)
         am_std = paddle.to_tensor(am_std)
         am_normalizer = ZScore(am_mu, am_std)
-        self.am_inference = am_inference_class(am_normalizer, am)
+        self.am_inference = am_inference_class(am_normalizer, am, pitch_stats, energy_stats)
         self.am_inference.eval()
 
         # vocoder
@@ -141,7 +150,18 @@ class TTSExecutor():
             flags = 0
             for part_phone_ids in phone_ids:
                 with paddle.no_grad():
-                    mel = self.am_inference(part_phone_ids)
+                    mel = self.am_inference(
+                                        part_phone_ids,
+                                        durations=None,
+                                        durations_scale = 1 / float(self.style_config['TTS']['SPEED']),
+                                        durations_bias = None,
+                                        pitch = None,
+                                        pitch_scale = float(self.style_config['TTS']['PITCH']),
+                                        pitch_bias = None,
+                                        energy = float(self.style_config['TTS']['ENERGY']),
+                                        energy_scale = None,
+                                        energy_bias = None,
+                                        )
                     wav = self.voc_inference(mel)
                 if flags == 0:
                     wav_all = wav

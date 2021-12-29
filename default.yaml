@@ -3,6 +3,11 @@ GANDRIVING:
   FOM_DRIVING_VIDEO: './file/input/zimeng.mp4'
   FOM_OUTPUT_VIDEO: './file/input/test.mp4'
 
+TTS:
+  SPEED: 1.0
+  PITCH: 1.0
+  ENERGY: 1.0
+
 SAVEPATH:
   VIDEO_SAVE_PATH: './file/output/video/'
   AUDIO_SAVE_PATH: './file/output/audio/'
