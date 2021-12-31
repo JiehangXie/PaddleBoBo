@@ -32,7 +32,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     _Config = Config(args.config)
 
-    TTS = TTSExecutor()
+    TTS = TTSExecutor(args.config)
     SAVEPATH = _Config.SavePath()
     before_news_id = None
 
