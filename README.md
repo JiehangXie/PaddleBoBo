@@ -47,11 +47,15 @@ SAVEPATH:
   VIDEO_SAVE_PATH: './file/output/video/' #保存音频的路径
   AUDIO_SAVE_PATH: './file/output/audio/' #保存生成虚拟主播视频的路径
 ```
-### 3.让静态人脸动起来
+### 3.视频修剪 (用作driving video)
+```
+python video_crop.py --input ./file/input/need_crop.mp4 --output ./file/input/crop_driving.mp4
+```
+### 4.让静态人脸动起来
 ```
 python create_virtual_human.py --config default.yaml
 ```
-### 4.通用版本生成
+### 5.通用版本生成
 
 ```
 python general_demo.py \
