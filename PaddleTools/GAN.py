@@ -3,16 +3,9 @@ from ppgan.apps.wav2lip_predictor import Wav2LipPredictor
 from ppgan.apps.first_order_predictor import FirstOrderPredictor
 
 #热加载
-wav2lip_predictor = Wav2LipPredictor(static = False,fps=30,pads = [0, 10, 0, 0],
-                 face_det_batch_size = 4,
-                 wav2lip_batch_size = 32,
-                 resize_factor = 1,
-                 crop = [0, -1, 0, -1],
-                 box = [-1, -1, -1, -1],
-                 rotate = False,
-                 nosmooth = False,
-                 face_detector = 'sfd',
-                 face_enhancement = True)
+wav2lip_predictor = Wav2LipPredictor(face_det_batch_size = 2,
+                                 wav2lip_batch_size = 16,
+                                 face_enhancement = True)
 
 
 def wav2lip(input_video,input_audio,output):
